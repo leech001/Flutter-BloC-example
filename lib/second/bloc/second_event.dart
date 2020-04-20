@@ -5,4 +5,8 @@ abstract class SecondEvent {}
 
 class InitialSecond extends SecondEvent {}
 
-class AddSecond extends SecondEvent {}
+class LoadSecond extends SecondEvent {
+  final int id;
+
+  LoadSecond(this.id);
+}

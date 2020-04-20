@@ -6,7 +6,7 @@ abstract class SecondState {}
 class SecondInitial extends SecondState {}
 
 class SecondLoaded extends SecondState {
-  final List<Item> items;
+  final ItemPost item;
 
-  SecondLoaded(this.items);
+  SecondLoaded(this.item);
 }

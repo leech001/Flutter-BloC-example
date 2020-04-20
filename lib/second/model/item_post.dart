@@ -1,33 +1,33 @@
 import 'dart:convert';
 
-Item itemFromJson(String str) => Item.fromJson(json.decode(str));
+ItemPost itemPostFromJson(String str) => ItemPost.fromJson(json.decode(str));
 
-String itemToJson(Item data) => json.encode(data.toJson());
+String itemPostToJson(ItemPost data) => json.encode(data.toJson());
 
-class Item {
+class ItemPost {
   int userId;
   int id;
   String title;
-  bool completed;
+  String body;
 
-  Item({
+  ItemPost({
     this.userId,
     this.id,
     this.title,
-    this.completed,
+    this.body,
   });
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory ItemPost.fromJson(Map<String, dynamic> json) => ItemPost(
         userId: json["userId"],
         id: json["id"],
         title: json["title"],
-        completed: json["completed"],
+        body: json["body"],
       );
 
   Map<String, dynamic> toJson() => {
         "userId": userId,
         "id": id,
         "title": title,
-        "completed": completed,
+        "body": body,
       };
 }

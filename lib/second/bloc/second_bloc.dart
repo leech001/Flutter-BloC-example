@@ -1,16 +1,15 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:bloc_example/second/model/items.dart';
-import 'package:http_auth/http_auth.dart';
 import 'package:meta/meta.dart';
+import 'package:bloc_example/second/model/item_post.dart';
+import 'package:http_auth/http_auth.dart';
 
 part 'second_event.dart';
 part 'second_state.dart';
 
 class SecondBloc extends Bloc<SecondEvent, SecondState> {
-  List<Item> items = [];
-  int _page = 0;
+  ItemPost _post;
 
   @override
   SecondState get initialState => SecondInitial();
@@ -19,25 +18,17 @@ class SecondBloc extends Bloc<SecondEvent, SecondState> {
   Stream<SecondState> mapEventToState(
     SecondEvent event,
   ) async* {
-    if (event is InitialSecond) {
+    if (event is LoadSecond) {
       yield SecondInitial();
-      for (int _i = 1; _i < 10; _i++) {
-        _page = _i;
-        await _fetch(_page);
-        yield SecondLoaded(items);
-      }
-    }
-    if (event is AddSecond) {
-      await _fetch(++_page);
-      yield SecondLoaded(items);
+      _post = await _fetch(event.id);
+      yield SecondLoaded(_post);
     }
   }
 
-  Future _fetch(_page) async {
+  Future<ItemPost> _fetch(_id) async {
     final _client = BasicAuthClient('', '');
     final _response =
-        await _client.get('https://jsonplaceholder.typicode.com/todos/$_page');
-    final _result = itemFromJson(_response.body);
-    items.add(_result);
+        await _client.get('https://jsonplaceholder.typicode.com/posts/$_id');
+    return (itemPostFromJson(_response.body));
   }
 }
