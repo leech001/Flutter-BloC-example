@@ -24,8 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  bloc: ^3.0.0
-  flutter_bloc: ^3.2.0
+  bloc: ^4.0.0
+  flutter_bloc: ^4.0.0
   http_auth: ^0.2.9
   lazy_load_scrollview: ^1.0.1
 
